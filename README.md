@@ -8,7 +8,7 @@ A full-stack web application for managing movies with video file upload, automat
 
 # 2. CLONE INSTRUCTION
 
-git clone https://github.com/your-username/movie-management-platform.git
+git clone https://github.com/manntala/movie_management.git
 cd movie-management-platform
 
 # 3. ENVIRONMMENT VARIABLES
