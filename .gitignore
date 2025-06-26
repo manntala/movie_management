@@ -1,0 +1,63 @@
+# Gitignore for movie_management_platform (Root Level)
+
+# --- General ---
+.DS_Store # macOS specific files
+.env # Environment variables (sensitive data)
+.env.*.local # Local environment variables
+*.log # Log files
+
+# --- Python / Django Backend (mmp_backend) ---
+# Virtual environment
+venv/
+.venv/
+env/
+.env/
+
+# Byte-code files
+*.pyc
+__pycache__/
+
+# Django specific
+db.sqlite3 # Default SQLite database
+media/ # User uploaded media files (if stored locally)
+static/ # Collectstatic output, if serving locally and not versioned
+# If you run collectstatic in production, you might want to ignore it here,
+# and only include the source static files.
+# The 'mmp_backend/static' entries you have are likely source static files,
+# so they are currently being tracked. Keep them tracked if they are source.
+
+# Python Eggs
+*.egg
+*.egg-info/
+
+# Django local settings (if you have one not already covered by .env)
+local_settings.py
+
+# --- Node.js / Frontend (if present, potentially within mmp_backend or its own folder) ---
+node_modules/ # Node.js dependencies
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.parcel-cache/ # Parcel build cache
+dist/ # Compiled output directory (e.g., from Webpack, Parcel, Vite)
+build/ # Another common build output directory
+
+# --- Docker ---
+# Ignore build contexts or temporary files created by Docker
+.dockerignore # This file should be committed, but sometimes .dockerignore
+              # files themselves have rules for files *within* the build context.
+# Specific to your docker-compose setup, if volumes are created for persistent data:
+# For example, if you have a data volume for the database that's mounted:
+# ./data/db/ # (If db data is stored directly in a folder and not a named volume)
+
+# --- IDEs ---
+.vscode/ # VS Code specific settings
+.idea/ # IntelliJ / PyCharm specific settings
+*.swp # Vim swap files
+*~ # Emacs backup files
+
+# Frontend environment variables
+mmp_frontend/.env
+
+# Django static files (generated/collected)
+mmp_backend/static/

@@ -1,0 +1,92 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./mmp_backend
+    container_name: django-backend
+    working_dir: /app
+    command: >
+      gunicorn movie_management_platform.wsgi:application --timeout 120 --workers 3 --bind 0.0.0.0:8000
+    volumes:
+      - ./mmp_backend:/app
+      - media:/app/media
+      - static:/app/static
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./mmp_backend/.env
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:15
+    container_name: db
+    env_file:
+      - ./mmp_backend/.env
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    container_name: redis
+
+  celery:
+    build:
+      context: ./mmp_backend
+    container_name: celery-worker
+    working_dir: /app
+    command: >
+      celery -A movie_management_platform worker -l info
+    volumes:
+      - ./mmp_backend:/app
+      - media:/app/media
+      - static:/app/static
+      - ./mmp_backend/wait-for-it.sh:/app/wait-for-it.sh
+    env_file:
+      - ./mmp_backend/.env
+    depends_on:
+      - db
+      - redis
+
+  celery-beat:
+    build:
+      context: ./mmp_backend
+    container_name: celery-beat
+    working_dir: /app
+    command: >
+      celery -A movie_management_platform beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    volumes:
+      - ./mmp_backend:/app
+      - media:/app/media
+      - static:/app/static
+      - ./mmp_backend/wait-for-it.sh:/app/wait-for-it.sh
+    env_file:
+      - ./mmp_backend/.env
+    depends_on:
+      - db
+      - redis
+
+  frontend:
+    build:
+      context: ./mmp_frontend
+    container_name: react-frontend
+    working_dir: /app
+    command: npm run dev
+    volumes:
+      - ./mmp_frontend:/app
+    ports:
+      - "5173:5173"
+    stdin_open: true
+    tty: true
+
+
+volumes:
+  postgres_data:
+  media:
+  static:

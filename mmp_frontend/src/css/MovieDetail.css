@@ -1,0 +1,34 @@
+.movie-detail-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Blurred full-page background */
+.movie-blurred-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: blur(20px);
+  z-index: 0;
+  opacity: 0.6;
+}
+
+/* Ensure foreground content sits above */
+.movie-detail-page .container {
+  position: relative;
+  z-index: 2;
+}
+
+.main-content {
+  padding: 0px;
+}
+
+.movie-card-container {
+  max-width: 960px;
+}
