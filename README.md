@@ -52,3 +52,7 @@ python manage.py runserver
 cd mmp_frontend
 npm install
 npm run dev
+
+6. LIMITATION
+One of the limitation that I have noticed and have not fixed yet is the timeout for the thumbnail.
+It should be able to load the thumbnail without refreshing the page.
