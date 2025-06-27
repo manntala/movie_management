@@ -59,6 +59,9 @@ It should be able to load the thumbnail without refreshing the page.
 
 ### Sometimes it would take couple more seconds before the correct thumbnails are loaded.
 
+### Too improve the correct filtering for the movie posters/thumbnails the Title of the movie should be accurate and the release date should be included in the description.
+#### For example: "Movie released on 2015" or "2015".
+
 
 ## 7. SHORT VIDEO DEMO
 https://drive.google.com/file/d/1z_ytt_J2JutFM4s8kTseAKc_MK0LDxSY/view?usp=sharing

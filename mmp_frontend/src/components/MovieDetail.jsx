@@ -73,7 +73,7 @@ export default function MovieDetail() {
 
           <div className="col-md-8 d-flex flex-column justify-content-between">
             <div>
-              <h2 className="fw-bold text-dark">{movie.title}</h2>
+              <h2 className="fw-bold text-dark text-capitalize">{movie.title}</h2>
               <p className="mb-2">
                 <strong>Description:</strong> {movie.description}
               </p>
