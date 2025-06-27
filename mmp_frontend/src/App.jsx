@@ -2,8 +2,6 @@ import "./css/App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Home from "./pages/Home";
-import Favorites from "./pages/Favorites";
-import MovieList from "./components/MovieList";
 import MovieDetail from "./components/MovieDetail";
 import MovieForm from "./components/MovieForm";
 import Login from "./components/Login";

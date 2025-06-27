@@ -6,7 +6,7 @@ import { RiMovie2AiLine } from "react-icons/ri";
 
 function NavBar() {
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
+  const { user, logout } = useAuth(); // ✅ only call once
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -15,7 +15,6 @@ function NavBar() {
     navigate("/login");
   };
 
-  // Close dropdown if clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -28,10 +27,11 @@ function NavBar() {
 
   return (
     <nav className="navbar">
-     <div className="navbar-brand d-flex align-items-center gap-2">
-      <RiMovie2AiLine size={28} style={{ verticalAlign: "middle" }} />
-      <Link to="/" className="brand-link">Movie Management Platform</Link>
-    </div>
+      <div className="navbar-brand d-flex align-items-center gap-2">
+        <RiMovie2AiLine size={28} style={{ verticalAlign: "middle" }} />
+        <Link to="/" className="brand-link">Movie Management Platform</Link>
+      </div>
+
       <div className="navbar-links">
         {user ? (
           <div className="nav-dropdown" ref={dropdownRef}>
@@ -39,7 +39,7 @@ function NavBar() {
               className="greeting clickable text-capitalize"
               onClick={() => setDropdownOpen(!dropdownOpen)}
             >
-              Hi, {user.username} 
+              Hi, {user.username}
             </span>
 
             {dropdownOpen && (

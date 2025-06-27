@@ -35,40 +35,41 @@ export default function MovieForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData();
-    for (const key in form) {
-      if (form[key] && key !== "thumbnail_url") {
-        data.append(key, form[key]);
+
+    Object.entries(form).forEach(([key, value]) => {
+      if (value && key !== "thumbnail_url") {
+        data.append(key, value);
       }
-    }
+    });
 
     setUploading(true);
     setProgress(0);
 
     const config = {
-      onUploadProgress: (progressEvent) => {
-        if (progressEvent.total) {
-          const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+      onUploadProgress: (e) => {
+        if (e.total) {
+          const percent = Math.round((e.loaded * 100) / e.total);
           setProgress(percent);
         }
       },
     };
 
-    const req = isEdit
+    const request = isEdit
       ? API.patch(`/movies/${id}/`, data, config)
       : API.post("/movies/", data, config);
 
-    req.then((res) => {
-      setProgress(100);
-      setTimeout(() => {
+    request
+      .then(() => {
+        setProgress(100);
+        setTimeout(() => {
+          setUploading(false);
+          navigate("/"); // ✅ Redirect to home after success
+        }, 1000);
+      })
+      .catch(() => {
         setUploading(false);
-        if (isEdit) {
-          navigate(`/movies/${id}`, { state: { autoRedirect: true } });
-        } else {
-          const newId = res.data.id;
-          navigate(`/movies/${newId}`, { state: { autoRedirect: true } });
-        }
-      }, 1500);
-    });
+        alert("An error occurred during upload. Please try again.");
+      });
   };
 
   const handleCancel = () => navigate("/");

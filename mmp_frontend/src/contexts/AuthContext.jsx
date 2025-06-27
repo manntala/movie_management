@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
 
@@ -7,20 +8,36 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const token = localStorage.getItem("access");
-    const username = localStorage.getItem("username");
-    if (token && username) {
-      setUser({ username, token });
+
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        setUser({ username: decoded.username || "User", id: decoded.user_id });
+      } catch (err) {
+        console.error("Failed to decode token", err);
+      }
     }
   }, []);
 
-  const login = ({ username, token }) => {
-    localStorage.setItem("username", username);
-    localStorage.setItem("access", token);
-    setUser({ username, token });
+  const login = ({ token }) => {
+    localStorage.setItem("access", token.access);
+    localStorage.setItem("refresh", token.refresh);
+
+    try {
+      const decoded = jwtDecode(token.access);
+      setUser({
+        username: decoded.username,
+        id: decoded.user_id,
+      });
+    } catch (err) {
+      console.error("Failed to decode token at login", err);
+    }
   };
 
+
   const logout = () => {
-    localStorage.clear();
+    localStorage.removeItem("access");
+    localStorage.removeItem("refresh");
     setUser(null);
   };
 

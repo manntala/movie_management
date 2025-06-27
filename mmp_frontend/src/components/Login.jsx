@@ -16,9 +16,15 @@ export default function Login() {
     e.preventDefault();
     try {
       const token = await apiLogin(username, password);
-      login({ username, token });
+      login({ token });
+      console.log("✅ Token received:", token); 
+
+      localStorage.setItem("access", token.access);
+      localStorage.setItem("refresh", token.refresh);
+
       navigate("/");
     } catch (err) {
+      console.error("❌ Login failed:", err);
       setError("Invalid username or password");
     }
   };

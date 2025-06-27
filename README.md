@@ -1,4 +1,4 @@
-# 1. MOVIE MANAGEMENT PLATFORM
+## 1. MOVIE MANAGEMENT PLATFORM
 
 A full-stack web application for managing movies with video file upload, automatic thumbnail generation.
 
@@ -6,12 +6,12 @@ A full-stack web application for managing movies with video file upload, automat
 - **Frontend**: ReactJS (Vite), Bootstrap
 - **Others**: Docker, Docker Compose, JWT Auth, ffmpeg (for media processing), TMDB API
 
-# 2. CLONE INSTRUCTION
+## 2. CLONE INSTRUCTION
 
 git clone https://github.com/manntala/movie_management.git
 cd movie-management-platform
 
-# 3. ENVIRONMMENT VARIABLES
+## 3. ENVIRONMMENT VARIABLES
  Create a .env file in the root of mmp_backend/ with the following variables:
 
 DJANGO_SECRET_KEY=
@@ -32,7 +32,7 @@ https://www.themoviedb.org/
 and generate your API KEY here:
 https://www.themoviedb.org/settings/api
 
-# 4. RUN THE FULLSTACK WITH DOCKER
+## 4. RUN THE FULLSTACK WITH DOCKER
 docker-compose up --build
 This starts:
 Django backend (on port 8000)
@@ -41,7 +41,7 @@ PostgreSQL DB
 Redis
 Celery worker & beat
 
-# 5. Manual Setup (OPTIONAL/NOT RECOMMENDED)
+## 5. Manual Setup (OPTIONAL/NOT RECOMMENDED)
 cd mmp_backend
 python3 -m venv venv
 source venv/bin/activate
@@ -53,9 +53,12 @@ cd mmp_frontend
 npm install
 npm run dev
 
-6. LIMITATION
-One of the limitation that I have noticed and have not fixed yet is the timeout for the thumbnail.
+## 6. LIMITATION
+### One of the limitation that I have noticed and have not fixed yet is the timeout for the thumbnail.
 It should be able to load the thumbnail without refreshing the page.
 
-7. SHORT VIDEO DEMO
+### Sometimes it would take couple more seconds before the correct thumbnails are loaded.
+
+
+## 7. SHORT VIDEO DEMO
 https://drive.google.com/file/d/1z_ytt_J2JutFM4s8kTseAKc_MK0LDxSY/view?usp=sharing

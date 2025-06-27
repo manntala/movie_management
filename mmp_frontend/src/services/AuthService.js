@@ -4,8 +4,11 @@ const baseURL = 'http://localhost:8000';
 
 export async function login(username, password) {
   const res = await axios.post(`${baseURL}/api/token/`, { username, password });
+
   localStorage.setItem('access', res.data.access);
   localStorage.setItem('refresh', res.data.refresh);
+
+  return res.data;
 }
 
 export async function refreshToken() {
